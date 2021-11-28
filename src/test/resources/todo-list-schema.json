@@ -1,0 +1,75 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "array",
+    "title": "The root schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "default": [],
+    "examples": [
+        [
+            {
+                "id": 1,
+                "text": "abc",
+                "done": true
+            }
+        ]
+    ],
+    "additionalItems": true,
+    "items": {
+        "$id": "#/items",
+        "anyOf": [
+            {
+                "$id": "#/items/anyOf/0",
+                "type": "object",
+                "title": "The first anyOf schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": {},
+                "examples": [
+                    {
+                        "id": 1,
+                        "text": "abc",
+                        "done": true
+                    }
+                ],
+                "required": [
+                    "id",
+                    "text",
+                    "done"
+                ],
+                "properties": {
+                    "id": {
+                        "$id": "#/items/anyOf/0/properties/id",
+                        "type": "integer",
+                        "title": "The id schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": 0,
+                        "examples": [
+                            1
+                        ]
+                    },
+                    "text": {
+                        "$id": "#/items/anyOf/0/properties/text",
+                        "type": "string",
+                        "title": "The text schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": "",
+                        "examples": [
+                            "abc"
+                        ]
+                    },
+                    "done": {
+                        "$id": "#/items/anyOf/0/properties/done",
+                        "type": "boolean",
+                        "title": "The done schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": false,
+                        "examples": [
+                            true
+                        ]
+                    }
+                },
+                "additionalProperties": true
+            }
+        ]
+    }
+}
