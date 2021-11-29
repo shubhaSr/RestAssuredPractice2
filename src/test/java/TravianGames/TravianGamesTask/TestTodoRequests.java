@@ -126,6 +126,8 @@ public class TestTodoRequests {
 		//Todo actual_todo_item = response.getBody().as(Todo.class);
 		int id = response.getBody().jsonPath().getInt("id");
 		list_of_id.add(id);
+
+		assert_get_returns_expected_todo(id, text_to_add, done_to_add);
 	}
 	
 
@@ -148,6 +150,21 @@ public class TestTodoRequests {
 			body("id", equalTo(id)).
 			body("text", equalTo(text_to_update)).
 		    body("done", equalTo(done_to_update));
+
+		assert_get_returns_expected_todo(id, text_to_update, done_to_update);
+	}
+
+	public void assert_get_returns_expected_todo(int expected_id, String expected_text, boolean expected_done) {
+		given().
+			pathParam("id", expected_id).
+		when().
+			get("/todos/{id}").
+		then().
+			statusCode(200).
+			body(matchesJsonSchemaInClasspath("todo-schema.json")).
+			body("id", equalTo(expected_id)).
+			body("text", equalTo(expected_text)).
+			body("done", equalTo(expected_done));
 	}
 	
 	@Test(dependsOnMethods ="test_post_a_new_todo",description = "this test tries updates the data for invalid id",groups = "negative")
@@ -262,4 +279,5 @@ public class TestTodoRequests {
 			statusCode(200).
 			body(matchesJsonSchemaInClasspath("todo-list-schema.json"));
 	}
+
 }
